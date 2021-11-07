@@ -19,3 +19,16 @@ app.use(routes);
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------------------------------------------TO DO
+
+// Must use and install apollo and initialize apollo
+// must define your schemas: typeDefs and resolvers - create Folder
+// remove Routes folder and any trace 
+// check the mongo syntax
