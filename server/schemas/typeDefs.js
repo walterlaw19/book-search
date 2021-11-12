@@ -5,26 +5,21 @@ type User {
     _id: ID
     username: String
     email: String
-    friendCount: Int
-    thoughts: [Thought]
-    friends: [User]
+    bookCount: Int
+    savedBooks: [Book]
   }
 
-  type Thought {
+  type Book {
     _id: ID
-    thoughtText: String
-    createdAt: String
-    username: String
-    reactionCount: Int
-    reactions: [Reaction]
+    bookId: String
+    authors: [String]
+    description: String
+    title: String
+    image: String
+    link: String
   }
 
-  type Reaction {
-    _id: ID
-    reactionBody: String
-    createdAt: String
-    username: String
-  }
+  
 
   type Auth {
     token: ID!
