@@ -3,9 +3,14 @@ import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'reac
 
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';  // import function savedBook from initiazizing a useMutation - login/mutation-----------
+// import useMutation
+// import the mutation for saving a book 
+
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
+  // create a saveBook function --> combination of useMutation and the mutation for saving a book
+
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
@@ -65,6 +70,7 @@ const SearchBooks = () => {
     }
 
     try {
+      // convert these:
       const response = await saveBook(bookToSave, token);
 
       if (!response.ok) {
@@ -73,6 +79,8 @@ const SearchBooks = () => {
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      ///////////////////////////////////
+      // into the appropriate mutation function call
     } catch (err) {
       console.error(err);
     }
