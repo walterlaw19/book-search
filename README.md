@@ -26,7 +26,7 @@ Using React as front end and Express, MongoDB, and Node.js as back end with depe
 ## Deployment
 
 click here to view the application:
-https://walterlaw19.github.io/react-portfolio/
+https://vast-ridge-74563.herokuapp.com/
 
 ## Usage
 you can use this code to create your own application to search for books using MERN.
