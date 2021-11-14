@@ -2,13 +2,24 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { loginUser } from '../utils/API';
+import { useMutation } from '@apollo/react-hooks';
+import { LOGIN_USER } from '../utils/mutations';
+
+
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+
+
+  const [loginUser, {error}] = useMutation(LOGIN_USER);
+
+
+
+
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,15 +37,42 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      const { data } = await loginUser({
+        variables: {...userFormData}
+      });
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
+      console.log(data)
+
+    //   {
+    //     login: {
+    //       token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiamFuZWRvZSIsImVtYWlsIjoiamFuZWRvZUBnbWFpbC5jb20iLCJfaWQiOiI2MTkwODMzNjU5NDM4OTJlMDlkYjE3OWMifSwiaWF0IjoxNjM2ODYxNjY1LCJleHAiOjE2MzY4Njg4NjV9.yRK1kGNvc75SsUfxQiIm6bpBEYGYJ3WY7bM3otKYhjo',
+    // [0]   user: {
+    // [0]     _id: 619083365943892e09db179c,
+    // [0]     username: 'janedoe',
+    // [0]     email: 'janedoe@gmail.com',
+    // [0]     password: '$2b$10$CFsVvKXLZk1zFE.yuGYumO8qcXGxbu4jfClBCyqU5oEvG8Hv2EXpC',
+    // [0]     savedBooks: [],
+    // [0]     __v: 0
+    // [0]   }
+    //     }
+    //   }
+      Auth.login(data.login.token);
+      // console.log(anything)
+
+
+
+
+
+      // const response = await loginUser(userFormData);
+
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!');
+      // }
+
+      // const { token, user } = await response.json();
+      // console.log(user);
+      // Auth.login(token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);

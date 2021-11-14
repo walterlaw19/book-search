@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { searchGoogleBooks } from '../utils';  // import function savedBook from initiazizing a useMutation - login/mutation-----------
+import { searchGoogleBooks } from '../utils/API';  // import function savedBook from initiazizing a useMutation - login/mutation-----------
 // import useMutation
 import { useMutation } from '@apollo/react-hooks';
 // import the mutation for saving a book 
@@ -72,6 +72,7 @@ const SearchBooks = () => {
       return false;
     }
 
+
     try {
       // convert these:
       // const response = await saveBook(bookToSave, token);
@@ -82,8 +83,10 @@ const SearchBooks = () => {
 
       try {
         const { data } = await saveBook({
-          variables: { ...bookToSave }
+          variables: { input: bookToSave }
         });
+
+        console.log(data)
 
         // if book successfully saves to user's account, save book id to state
         setSavedBookIds([...savedBookIds, bookToSave.bookId]);
